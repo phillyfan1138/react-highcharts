@@ -1,9 +1,9 @@
-react-highcharts
+react-highcharts-update
 ================
 
-[![Build Status](https://travis-ci.org/kirjs/react-highcharts.svg?branch=master)](https://travis-ci.org/kirjs/react-highcharts)
 
-Highcharts component for react.
+
+Highcharts component for react.  This is a fork of the excellent [react-highcharts](https://github.com/kirjs/react-highcharts) module.
 
 ## Demos
 [react-highcharts](http://kirjs.github.io/react-highcharts/)
@@ -17,15 +17,11 @@ You can also see [Code for the demo](https://github.com/kirjs/react-highcharts/t
 ## Installation
 
 ```bash
-npm install react-highcharts --save
+npm i react-highcharts-update
 ```
 
 ## Usage
-#### Webpack/Browserify
 
-```bash
-npm install react-highcharts highcharts react --save
-```
 
 ```jsx
 const React = require('react');

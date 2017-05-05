@@ -1,7 +1,7 @@
 {
-  "name": "react-highcharts",
-  "version": "12.0.0",
-  "description": "React wrapper for highcharts",
+  "name": "react-highcharts-update",
+  "version": "0.0.1",
+  "description": "React wrapper for highcharts with 'faked' react way of updated",
   "main": "dist/ReactHighcharts.js",
   "scripts": {
     "test": "webpack && mocha test/unit",
@@ -17,17 +17,17 @@
     "version": "npm run prepublish",
     "postversion": "git push && git push --tags"
   },
-  "author": "Kirill Cherkashin",
+  "author": "Kirill Cherkashin, Daniel Stahl [edited version]",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kirjs/react-highcharts"
+    "url": "https://github.com/phillyfan1138/react-highcharts"
   },
   "peerDependencies": {
     "react": "~0.14 || ^15.0.0",
     "react-dom": "~0.14 || ^15.0.0"
   },
-  "bugs": "https://github.com/kirjs/react-highcharts/issues",
+  "bugs": "https://github.com/phillyfan1138/react-highcharts/issues",
   "keywords": [
     "chart",
     "react",

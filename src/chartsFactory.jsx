@@ -1,7 +1,7 @@
 var React = require('react');
 var createReactClass = require('create-react-class');
 var PropTypes = require('prop-types');
-var win = typeof global === 'undefined' ? window : global;
+//var win = typeof global === 'undefined' ? window : global;
 
 module.exports = function (chartType, Highcharts){
   var displayName = 'Highcharts' + chartType;
@@ -10,8 +10,8 @@ module.exports = function (chartType, Highcharts){
 
     propTypes: {
       config: PropTypes.object,
-      isPureConfig: PropTypes.bool,
-      neverReflow: PropTypes.bool,
+      //isPureConfig: PropTypes.bool,
+     // neverReflow: PropTypes.bool,
       callback: PropTypes.func,
       domProps: PropTypes.object
     },
@@ -34,19 +34,30 @@ module.exports = function (chartType, Highcharts){
         }
       }, this.props.callback);
 
-      if (!this.props.neverReflow) {
+
+      /*if (!this.props.neverReflow) {
         win && win.requestAnimationFrame && requestAnimationFrame(()=>{
           this.chart && this.chart.options && this.chart.reflow();
         });
-      }
+      }*/
     },
 
     shouldComponentUpdate(nextProps) {
-      if (nextProps.neverReflow || (nextProps.isPureConfig && this.props.config === nextProps.config)) {
-        return true;
+      if (this.props.config === nextProps.config) {
+        return false
+      }
+      if(this.props.config.series!==nextProps.config.series){ //fakes a "react" render as more data is loaded
+        this.props.config.series.map((oldSeries, index)=>{
+          if(oldSeries!==nextProps.config.series[index]){
+            this.chart.series[index].setData(nextProps.config.series, false)
+          }
+        })
+        this.chart.redraw()
+        return false
       }
       this.renderChart(nextProps.config);
-      return false;
+      return true
+
     },
 
     getChart: function (){
