@@ -49,10 +49,10 @@ module.exports = function (chartType, Highcharts){
       if(this.props.config.series!==nextProps.config.series){ //fakes a "react" render as more data is loaded
         this.props.config.series.map((oldSeries, index)=>{
           if(oldSeries!==nextProps.config.series[index]){
-            this.chart.series[index].setData(nextProps.config.series[index].data, false)
+            this.chart.series[index].setData(nextProps.config.series[index].data, false) //don't redraw until all the series has been delt with
           }
         })
-        this.chart.redraw()
+        this.chart.redraw(true)//animation
         return false
       }
       this.renderChart(nextProps.config);

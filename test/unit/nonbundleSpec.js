@@ -188,7 +188,7 @@ function nonBundleTest(lib, chartName, modulename){
         var fakeHighchartsInstance = {
           options: {},
           reflow: sinon.stub(),
-          redraw:()=>{
+          redraw:(shouldAnimate)=>{
 
           },
           series:[
