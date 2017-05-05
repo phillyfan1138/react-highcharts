@@ -33,7 +33,7 @@ module.exports = function (chartType, Highcharts){
       }, this.props.callback);
 
     },
-    updateSeries:(oldSeries, currSeries)=>{
+    updateSeries:function(oldSeries, currSeries){
       oldSeries.map((oldS, index)=>{
         if(oldS!==currSeries[index]){
           this.chart.series[index].setData(currSeries[index].data, false)
