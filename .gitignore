@@ -7,6 +7,6 @@ demo/dist/*
 demodist
 bundle
 index.src.js
-./*.js
+/*.js
 !webpack.config.js
 !nightwatch.js
