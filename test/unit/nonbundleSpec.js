@@ -113,13 +113,30 @@ function nonBundleTest(lib, chartName, modulename){
       });
     });
 
-    describe('Reflowing', function (){
+    describe('Updating Data', function (){
       beforeEach(()=>{
         global.requestAnimationFrame = sinon.stub();
       });
 
+      
+      it('doesnt update chart when no new data', function (){
+        const config={
+          chart:{
+            type:'column'
+          },
+          title:{
+            text:'my chart'
+          },
+          credits:{
+            enabled:false
+          },
+          series:[
+            {
+              data:[[.5, .7], [.6, .9], [1, .4]]
+            }
+          ]
 
-      it('Schedules reflow in the next animation frame', function (){
+        }
         var fakeHighchartsInstance = {
           options: {},
           reflow: sinon.stub()
@@ -127,36 +144,73 @@ function nonBundleTest(lib, chartName, modulename){
 
         fakeHighcharts[chartName] = sinon.stub().returns(fakeHighchartsInstance);
 
-        TestUtils.renderIntoDocument(
-          React.createElement(Component, {config: {}, callback: noop})
+        var component=TestUtils.renderIntoDocument(
+          React.createElement(Component, {config: config, callback: noop})
         );
-
-        assert(global.requestAnimationFrame.called);
-        var callback = global.requestAnimationFrame.firstCall.args[0];
-        assert(!fakeHighchartsInstance.reflow.called);
-        callback();
-        assert(fakeHighchartsInstance.reflow.called);
+        assert(component.shouldComponentUpdate({config:config})===false)
+  
       });
+      it('Updates data when new data series', function (){
+        const config1={
+          chart:{
+            type:'column'
+          },
+          title:{
+            text:'my chart'
+          },
+          credits:{
+            enabled:false
+          },
+          series:[
+            {
+              data:[[.5, .7], [.6, .9], [1, .4]]
+            }
+          ]
 
-      it('Never reflows if neverReflow is true', function (){
+        }
+        const config2={
+          chart:{
+            type:'column'
+          },
+          title:{
+            text:'my chart'
+          },
+          credits:{
+            enabled:false
+          },
+          series:[
+            {
+              data:[[.5, 1.2], [.6, .9], [1, .9]]
+            }
+          ]
+
+        }
         var fakeHighchartsInstance = {
           options: {},
-          reflow: sinon.stub()
-        };
+          reflow: sinon.stub(),
+          redraw:()=>{
 
+          },
+          series:[
+            {
+              setData:(data, shouldUpdate)=>{
+                fakeHighchartsInstance.series[0].data=data
+              },
+              data:config1.series[0].data
+            }
+          ]
+        };
+        //fakeHighcharts[chartName] = sinon.spy();
         fakeHighcharts[chartName] = sinon.stub().returns(fakeHighchartsInstance);
 
-        TestUtils.renderIntoDocument(
-          React.createElement(Component, {
-            config: {},
-            callback: noop,
-            neverReflow: true
-          })
+        var component=TestUtils.renderIntoDocument(
+          React.createElement(Component, {config: config1, callback: noop})
         );
-
-        assert(!global.requestAnimationFrame.called);
-        assert(!fakeHighchartsInstance.reflow.called);
-      })
+        
+        component.shouldComponentUpdate({config:config2})
+        assert(component.getChart().series[0].data===config2.series[0].data)
+  
+      });
     });
   })
 }
