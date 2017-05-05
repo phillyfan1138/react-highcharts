@@ -4,3 +4,9 @@ node_modules
 dist
 modules
 demo/dist/*
+demodist
+bundle
+index.src.js
+./*.js
+!webpack.config.js
+!nightwatch.js
