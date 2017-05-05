@@ -10,8 +10,6 @@ module.exports = function (chartType, Highcharts){
 
     propTypes: {
       config: PropTypes.object,
-      //isPureConfig: PropTypes.bool,
-     // neverReflow: PropTypes.bool,
       callback: PropTypes.func,
       domProps: PropTypes.object
     },
@@ -34,12 +32,6 @@ module.exports = function (chartType, Highcharts){
         }
       }, this.props.callback);
 
-
-      /*if (!this.props.neverReflow) {
-        win && win.requestAnimationFrame && requestAnimationFrame(()=>{
-          this.chart && this.chart.options && this.chart.reflow();
-        });
-      }*/
     },
     updateSeries:(oldSeries, currSeries)=>{
       oldSeries.map((oldS, index)=>{
