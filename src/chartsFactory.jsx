@@ -41,18 +41,20 @@ module.exports = function (chartType, Highcharts){
         });
       }*/
     },
-
+    updateSeries:(oldSeries, currSeries)=>{
+      oldSeries.map((oldS, index)=>{
+        if(oldS!==currSeries[index]){
+          this.chart.series[index].setData(currSeries[index].data, false)
+        }
+      })
+      this.chart.redraw(true)
+    },
     shouldComponentUpdate(nextProps) {
       if (this.props.config === nextProps.config) {
         return false
       }
       if(this.props.config.series!==nextProps.config.series){ //fakes a "react" render as more data is loaded
-        this.props.config.series.map((oldSeries, index)=>{
-          if(oldSeries!==nextProps.config.series[index]){
-            this.chart.series[index].setData(nextProps.config.series[index].data, false) //don't redraw until all the series has been delt with
-          }
-        })
-        this.chart.redraw(true)//animation
+        this.updateSeries(this.props.config.series, nextProps.config.series)
         return false
       }
       this.renderChart(nextProps.config);
