@@ -8,5 +8,6 @@ demodist
 bundle
 index.src.js
 /*.js
+*.log
 !webpack.config.js
 !nightwatch.js

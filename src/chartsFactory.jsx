@@ -1,13 +1,10 @@
 var React = require('react');
 var createReactClass = require('create-react-class');
 var PropTypes = require('prop-types');
-//var win = typeof global === 'undefined' ? window : global;
-
 module.exports = function (chartType, Highcharts){
   var displayName = 'Highcharts' + chartType;
   var result = createReactClass({
     displayName: displayName,
-
     propTypes: {
       config: PropTypes.object,
       callback: PropTypes.func,
